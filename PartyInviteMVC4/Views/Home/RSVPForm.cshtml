@@ -1,0 +1,43 @@
+﻿@model PartyInviteMVC4.Models.GuestResponse
+<h2>RSVP Form</h2>
+<fieldset class="fieldset">
+    <legend>RSVP Form</legend>
+    @using (Html.BeginForm())
+    {
+        if (!Html.ViewData.ModelState.IsValid)
+        {
+            <div class="alert callout" data-closable data-alert>
+                <h5>Error!</h5>
+                <p>
+                    @Html.ValidationSummary()
+                </p>
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <p>Your Name: @Html.TextBoxFor(x => x.Name, new { @placeholder = "Name" })</p>
+        <!--p>
+            @Html.TextBox("Email",null,new{@placeholder="Enter your email Address"})
+        </p-->
+        <p>Your Email: @Html.TextBoxFor(x => x.Email, new { @placeholder = "Email Address"})</p>
+        <p>Your Phone: @Html.TextBoxFor(x => x.Phone, new {@placeholder = "Phone Number" })</p>
+        <p>
+            Will you attend ?
+            @Html.DropDownListFor(x => x.WillAttend, new[] {
+                new SelectListItem(){Text = "I will be there",
+                    Value = bool.TrueString
+                },
+                new SelectListItem() {Text = "No I can't come",
+                    Value = bool.FalseString}
+            }, "choose an option")
+        </p>
+        <input type="submit" value="Submit RSVP" class="button" />
+    }
+</fieldset>
+<style type="text/css">
+    .input-validation-error {
+        border: 1px solid #fab;
+        background-color: #fee;
+    }
+</style>
