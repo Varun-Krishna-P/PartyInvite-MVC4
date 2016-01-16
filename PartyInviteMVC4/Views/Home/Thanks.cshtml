@@ -17,6 +17,23 @@
     @if (Model.WillAttend == true)
     {
         <span class="confirm-yes">It's great that you're coming. The drinks are already in the fridge!</span>
+       // @{
+            try{
+                WebMail.SmtpServer = "smtp.example.com";
+                WebMail.SmtpPort = 25;
+                WebMail.EnableSsl = false;
+                WebMail.UserName = "";
+                WebMail.Password = "";
+                WebMail.From = "rsvp@example.com";
+                WebMail.Send("Party-host@example.com", "RSVP Notification", 
+                    Model.Name + "is " + ((Model.WillAttend ?? false) ? "" : "not")
+                    + "attending");
+            }
+            catch{
+                <br />
+                <b class="confirm-no">Sorry we could not send  the email to confirm your RSVP.</b>
+            }
+        //}
     }
     else
     {
